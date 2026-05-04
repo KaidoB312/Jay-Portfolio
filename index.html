@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaido · Portfolio</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="mono">[</span> kaido <span class="mono">]</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="active">home</a>
+        <a href="about.html">about</a>
+        <a href="resume.html">resume</a>
+        <a href="portfolio.html">portfolio</a>
+        <a href="contact.html">contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Switch theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <span class="badge">// web & management</span>
+        <h1>Kaido / Jay<br><span>design & leadership.</span></h1>
+        <p>Web Developer & General Manager with almost 5 years of experience. I specialize in web design, project management, and human resources.</p>
+        <div class="hero-actions">
+          <a href="portfolio.html" class="btn-primary">see my work</a>
+          <a href="contact.html" class="btn-outline">get in touch</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">5</span>
+          <span class="stat-label">years experience</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">Adobe</span>
+          <span class="stat-label">certified professional</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-preview">
+      <h2>what I offer</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <i class="fas fa-palette service-icon"></i>
+          <h3>Creative Design</h3>
+          <p>Logos, branding, video production, and presentations that tell your story.</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-code service-icon"></i>
+          <h3>Web Development</h3>
+          <p>Responsive, accessible websites built with modern HTML/CSS and JavaScript.</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-chalkboard-user service-icon"></i>
+          <h3>Project Management</h3>
+          <p>Keep projects on track, teams aligned, and goals achieved.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Kaido – quiet, intentional development.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

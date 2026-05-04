@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume — Kaido</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="mono">[</span> kaido <span class="mono">]</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">home</a>
+        <a href="about.html">about</a>
+        <a href="resume.html" class="active">resume</a>
+        <a href="portfolio.html">portfolio</a>
+        <a href="contact.html">contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Switch theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="page-header">
+      <h1>resume</h1>
+      <p>A snapshot of my professional journey.</p>
+    </section>
+
+    <div class="timeline">
+      <h2 class="timeline-title"><i class="fas fa-briefcase"></i> work experience</h2>
+
+      <!-- Sorted by start year ascending -->
+      <div class="timeline-item" data-animate>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">2021 – Present</span>
+          <h3>Project Manager / Web Developer</h3>
+          <h4>The Alcove</h4>
+          <p>Built responsive websites, maintained hosting environments, lead cross-functional teams, managed client relationships, and oversaw project delivery.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-animate>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">2022 – 2024</span>
+          <h3>Project Manager</h3>
+          <h4>Clouded</h4>
+          <p>Lead cross-functional teams, managed client relationships, and oversaw project delivery.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-animate>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">2025 – 2026</span>
+          <h3>Play Tester</h3>
+          <h4>Forgotten SMP</h4>
+          <p>Helped with cross-functional teams, managing and making new updates work, and overseeing whether plugins worked or not.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-animate>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">2026</span>
+          <h3>Web Developer</h3>
+          <h4>Freelance</h4>
+          <p>Built responsive websites for various clients (including but not limited to: Columbia Public School System and other local businesses).</p>
+        </div>
+      </div> <!-- Properly closed timeline-item -->
+
+      <h2 class="timeline-title"><i class="fas fa-graduation-cap"></i> education</h2>
+
+      <div class="timeline-item" data-animate>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">2026</span>
+          <h3>Adobe Certified Professional</h3>
+          <h4>Adobe</h4>
+          <p>Multiple certifications in web design, graphic design, and marketing.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Kaido – quiet, intentional development.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
