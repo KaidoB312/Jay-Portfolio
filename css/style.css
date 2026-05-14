@@ -481,6 +481,35 @@ main {
   margin-bottom: 0.8rem;
 }
 
+/* ------------------------------
+   ✨ NEW: project image sizing
+   ------------------------------ */
+.project-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.project-images img {
+  max-width: 100%;
+  height: auto;
+  max-height: 180px;       /* adjust this value to make thumbnails smaller/larger */
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.project-images img:hover {
+  transform: scale(1.02);
+}
+
+/* When there are multiple images, align them nicely */
+.project-images:has(img:nth-child(2)) {
+  justify-content: flex-start;
+}
+
 /* ---- Contact page ---- */
 .contact-grid {
   display: flex;
@@ -602,6 +631,11 @@ footer {
     border-left: none;      /* no side borders on mobile */
     border-right: none;
   }
+
+  /* Reduce image height slightly on tablets */
+  .project-images img {
+    max-height: 150px;
+  }
 }
 
 /* =========================================
@@ -640,5 +674,10 @@ footer {
   .filter-btn {
     padding: 0.4rem 1rem;
     font-size: 0.85rem;
+  }
+
+  /* Smaller images on mobile */
+  .project-images img {
+    max-height: 120px;
   }
 }

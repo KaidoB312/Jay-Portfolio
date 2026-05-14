@@ -59,7 +59,7 @@ const PROJECTS = [
     name: 'Brand Refresh',
     category: 'design',
     tags: ['Illustrator', 'Photoshop'],
-    description: 'Complete visual identity overhaul for The Alcove, The Cavern, and more.'
+    description: 'Complete visual identity overhaul for The Alcove, The Cavern, and more.',
   },
   {
     name: 'Admin Dashboard',
@@ -86,16 +86,43 @@ const PROJECTS = [
     description: 'Logos, social media graphics, and promotional materials for various clients.'
   },
   {
-        name: 'Web Games',
-        category: 'web',
-        tags: ['HTML/CSS', 'JavaScript'],
-        description: 'Fun, interactive web games built with vanilla JavaScript.'
+    name: 'Tanzimat Reforms Monopoly',
+    category: 'web',
+    tags: ['HTML/CSS', 'JavaScript'],
+    description: 'Fun, interactive game built with vanilla JavaScript.',
+    images: ['assets/TanzimatReformsMonopoly.png', 'assets/TanzimatReformsMonopolyBoard.png']
   },
   {
-        name: 'PivotPM',
-        category: 'web',
-        tags: ['HTML/CSS', 'JavaScript', 'Chart.js'],
-        description: 'Project management tool with real-time collaboration features. and more. (coming soon)'
+    name: 'OverKill',
+    category: 'web',
+    tags: ['HTML/CSS', 'JavaScript'],
+    description: 'A simple, shooter web game built with vanilla JavaScript.',
+    images: ['assets/OverkillMenu.png', 'assets/OverkillBoss.png']
+  },
+  {
+    name: 'The Alcove & The Cavern',
+    category: 'web',
+    tags: ['HTML/CSS', 'JavaScript'],
+    description: 'Branding and visual identity, including logos, as well as websites and graphics.'
+  },
+  {
+    name: 'Portrait of a Graduate for local school district',
+    category: 'web',
+    tags: ['HTML/CSS', 'JavaScript'],
+    description: 'A comprehensive visual representation of the district’s educational goals and values.',
+    images: ['assets/CPSPOG.png', 'assets/CPSPOG2.png', 'assets/CPSOG3.png']
+  },
+  {
+    name: 'Web Graphics for local businesses',
+    category: 'design',
+    tags: ['photoshop', 'illustrator'],
+    description: 'Logos, social media graphics, and promotional materials for various local businesses.'
+  },
+  {
+    name: 'PivotPM',
+    category: 'web',
+    tags: ['HTML/CSS', 'JavaScript', 'Chart.js'],
+    description: 'Project management tool with real-time collaboration features. (coming soon)'
   }
 ];
 
@@ -123,13 +150,27 @@ if (grid && filterContainer) {
 
   const renderProjects = (filter = 'all') => {
     const filtered = filter === 'all' ? PROJECTS : PROJECTS.filter(p => p.category === filter);
-    grid.innerHTML = filtered.map(proj => `
-      <div class="project-card" data-category="${proj.category}">
-        <h3>${proj.name}</h3>
-        <div class="project-tag">${proj.tags.join(', ')}</div>
-        <p>${proj.description}</p>
-      </div>
-    `).join('');
+    grid.innerHTML = filtered.map(proj => {
+      let imagesHTML = '';
+      if (proj.images && proj.images.length) {
+        // One or more images inside a wrapper for styling
+        imagesHTML = `<div class="project-images">` +
+          proj.images.map(src => `<img src="${src}" alt="${proj.name}" loading="lazy">`).join('') +
+          `</div>`;
+      } else if (proj.image) {
+        // Fallback for single image property if present
+        imagesHTML = `<div class="project-images"><img src="${proj.image}" alt="${proj.name}" loading="lazy"></div>`;
+      }
+
+      return `
+        <div class="project-card" data-category="${proj.category}">
+          ${imagesHTML}
+          <h3>${proj.name}</h3>
+          <div class="project-tag">${proj.tags.join(', ')}</div>
+          <p>${proj.description}</p>
+        </div>
+      `;
+    }).join('');
   };
 
   // Initial render
