@@ -1,3 +1,32 @@
+// ===== Cursor Glow Effect =====
+const cursorGlow = document.getElementById('cursorGlow');
+let mouseX = 0, mouseY = 0;
+let glowX = 0, glowY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursorGlow?.classList.add('active');
+});
+
+document.addEventListener('mouseleave', () => {
+  cursorGlow?.classList.remove('active');
+});
+
+// Smooth follow animation
+function animateGlow() {
+  glowX += (mouseX - glowX) * 0.1;
+  glowY += (mouseY - glowY) * 0.1;
+  
+  if (cursorGlow) {
+    cursorGlow.style.left = glowX + 'px';
+    cursorGlow.style.top = glowY + 'px';
+  }
+  
+  requestAnimationFrame(animateGlow);
+}
+animateGlow();
+
 // ===== Theme toggle + local storage =====
 const themeToggle = document.getElementById('themeToggle');
 const html = document.documentElement;
@@ -110,7 +139,7 @@ const PROJECTS = [
     category: 'web',
     tags: ['HTML/CSS', 'JavaScript'],
     description: 'A comprehensive visual representation of the district’s educational goals and values.',
-    images: ['assets/CPSPOG.png', 'assets/CPSPOG2.png', 'assets/CPSOG3.png']
+    images: ['assets/CPSPOG.png', 'assets/CPSPOG2.png', 'assets/CPSPOG3.png']
   },
   {
     name: 'Web Graphics for local businesses',
@@ -203,3 +232,39 @@ timelineItems.forEach(item => {
   item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   timelineObserver.observe(item);
 });
+
+// ===== Image Lightbox =====
+// Create lightbox overlay
+const lightboxOverlay = document.createElement('div');
+lightboxOverlay.className = 'lightbox-overlay';
+document.body.appendChild(lightboxOverlay);
+
+let expandedImg = null;
+
+// Event delegation for project images
+document.addEventListener('click', (e) => {
+  const img = e.target.closest('.project-images img');
+  
+  if (img && !img.classList.contains('expanded')) {
+    // Expand the image
+    expandedImg = img;
+    img.classList.add('expanded');
+    lightboxOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+});
+
+// Close lightbox on overlay click or escape key
+lightboxOverlay.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+function closeLightbox() {
+  if (expandedImg) {
+    expandedImg.classList.remove('expanded');
+    expandedImg = null;
+  }
+  lightboxOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}

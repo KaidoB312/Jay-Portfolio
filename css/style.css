@@ -11,6 +11,8 @@
   --font-main: 'Inter', sans-serif;
   --font-mono: 'Space Mono', monospace;
   --transition: 0.3s ease;
+  --particle-color: rgba(108, 92, 231, 0.15);
+  --glow-color: rgba(108, 92, 231, 0.08);
 }
 
 [data-theme="dark"] {
@@ -20,6 +22,165 @@
   --text-muted: #b0b0b0;
   --border: #2e2e2e;
   --shadow: 0 4px 20px rgba(0,0,0,0.3);
+  --particle-color: rgba(108, 92, 231, 0.25);
+  --glow-color: rgba(108, 92, 231, 0.12);
+}
+
+/* ===== Animated Background ===== */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Floating orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.6;
+  animation: float 20s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: var(--glow-color);
+  top: -100px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 300px;
+  height: 300px;
+  background: var(--glow-color);
+  bottom: -50px;
+  left: -50px;
+  animation-delay: -7s;
+  animation-duration: 25s;
+}
+
+.orb-3 {
+  width: 200px;
+  height: 200px;
+  background: var(--glow-color);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -14s;
+  animation-duration: 18s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -30px) scale(1.05);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+  75% {
+    transform: translate(20px, 10px) scale(1.02);
+  }
+}
+
+/* Floating particles */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--particle-color);
+  border-radius: 50%;
+  animation: rise 15s ease-in infinite;
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+.particle:nth-child(2) { left: 20%; animation-delay: -2s; animation-duration: 14s; }
+.particle:nth-child(3) { left: 30%; animation-delay: -4s; animation-duration: 11s; }
+.particle:nth-child(4) { left: 40%; animation-delay: -6s; animation-duration: 16s; }
+.particle:nth-child(5) { left: 50%; animation-delay: -8s; animation-duration: 13s; }
+.particle:nth-child(6) { left: 60%; animation-delay: -10s; animation-duration: 15s; }
+.particle:nth-child(7) { left: 70%; animation-delay: -12s; animation-duration: 12s; }
+.particle:nth-child(8) { left: 80%; animation-delay: -14s; animation-duration: 17s; }
+.particle:nth-child(9) { left: 90%; animation-delay: -16s; animation-duration: 14s; }
+.particle:nth-child(10) { left: 15%; animation-delay: -1s; animation-duration: 13s; }
+.particle:nth-child(11) { left: 35%; animation-delay: -3s; animation-duration: 15s; }
+.particle:nth-child(12) { left: 55%; animation-delay: -5s; animation-duration: 11s; }
+.particle:nth-child(13) { left: 75%; animation-delay: -7s; animation-duration: 16s; }
+.particle:nth-child(14) { left: 95%; animation-delay: -9s; animation-duration: 12s; }
+.particle:nth-child(15) { left: 5%; animation-delay: -11s; animation-duration: 14s; }
+
+@keyframes rise {
+  0% {
+    bottom: -10px;
+    opacity: 0;
+    transform: translateX(0) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 100%;
+    opacity: 0;
+    transform: translateX(30px) scale(1.2);
+  }
+}
+
+/* Subtle grid pattern */
+.grid-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(var(--particle-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--particle-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.3;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Mouse trail glow - positioned via JS */
+.cursor-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-glow.active {
+  opacity: 1;
 }
 
 /* ===== Reset & Base ===== */
@@ -482,32 +643,74 @@ main {
 }
 
 /* ------------------------------
-   ✨ NEW: project image sizing
+   ✨ Project image gallery
    ------------------------------ */
 .project-images {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Single image takes full width */
+.project-images:has(img:only-child) {
+  grid-template-columns: 1fr;
 }
 
 .project-images img {
-  max-width: 100%;
-  height: auto;
-  max-height: 180px;       /* adjust this value to make thumbnails smaller/larger */
-  border-radius: 6px;
+  width: 100%;
+  height: 140px;
+  border-radius: 8px;
   object-fit: cover;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
+  object-position: center top;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
 }
 
 .project-images img:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
+  box-shadow: 0 4px 16px rgba(108, 92, 231, 0.2);
+  z-index: 1;
+  position: relative;
 }
 
-/* When there are multiple images, align them nicely */
-.project-images:has(img:nth-child(2)) {
-  justify-content: flex-start;
+/* Lightbox effect on click - handled by adding class via JS if desired */
+.project-images img.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90vw;
+  max-height: 90vh;
+  height: auto;
+  width: auto;
+  z-index: 10000;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* Overlay for lightbox */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* ---- Contact page ---- */
@@ -632,9 +835,14 @@ footer {
     border-right: none;
   }
 
-  /* Reduce image height slightly on tablets */
+/* Adjust image grid on tablets */
+  .project-images {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.5rem;
+  }
+  
   .project-images img {
-    max-height: 150px;
+    height: 120px;
   }
 }
 
@@ -676,8 +884,21 @@ footer {
     font-size: 0.85rem;
   }
 
-  /* Smaller images on mobile */
+/* Smaller images on mobile */
+  .project-images {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+  
   .project-images img {
-    max-height: 120px;
+    height: 100px;
+  }
+  
+  .project-images:has(img:only-child) {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-images:has(img:only-child) img {
+    height: 160px;
   }
 }
