@@ -89,7 +89,7 @@ const PROJECTS = [
     category: 'fullstack',
     tags: ['React', 'Cloudflare Pages', 'D1', 'R2', 'Tailwind CSS'],
     description: 'Full waitlist & community platform with admin panel, feedback board, and signup flow. Full UI/UX ownership — built end-to-end.',
-    images: ['assets/aeris-hero.png', 'assets/aeris-admin.png', 'assets/aeris-feedback.png'],
+    images: ['assets/aeris-hero.png', 'assets/aeris-feedback.png'],
     links: { live: 'https://aeris.gg' },
     featured: true
   },
