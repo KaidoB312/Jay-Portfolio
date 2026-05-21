@@ -85,67 +85,75 @@ skillItems.forEach(item => observer.observe(item));
 // ===== Portfolio filter + dynamic render =====
 const PROJECTS = [
   {
-    name: 'Brand Refresh',
-    category: 'design',
-    tags: ['Illustrator', 'Photoshop'],
-    description: 'Complete visual identity overhaul for The Alcove, The Cavern, and more.',
+    name: 'Aeris',
+    category: 'fullstack',
+    tags: ['React', 'Cloudflare Pages', 'D1', 'R2', 'Tailwind CSS'],
+    description: 'Full waitlist & community platform with admin panel, feedback board, and signup flow. Full UI/UX ownership — built end-to-end.',
+    images: ['assets/aeris-hero.png', 'assets/aeris-admin.png', 'assets/aeris-feedback.png'],
+    links: { live: 'https://aeris.gg' },
+    featured: true
   },
   {
-    name: 'Admin Dashboard',
+    name: 'The Alcove',
+    category: 'fullstack',
+    tags: ['React', 'Cloudflare D1', 'Tailwind CSS', 'Discord API'],
+    description: 'Complete brand identity, website, admin panel, and Discord community. Member management, project showcase, and systems administration.',
+    images: ['assets/alcove-hero.png', 'assets/alcove-admin.png', 'assets/alcove-discord.png'],
+    links: { live: 'https://thealcove.dev' },
+    featured: true
+  },
+  {
+    name: 'OverKill',
     category: 'web',
-    tags: ['HTML/CSS', 'JavaScript', 'Chart.js'],
-    description: 'Admin dashboard with real-time website management and analytics.'
-  },
-  {
-    name: 'Custom Websites',
-    category: 'web',
-    tags: ['HTML/CSS', 'JavaScript', 'Chart.js'],
-    description: 'Custom-built websites for local businesses, optimized for performance and SEO.'
-  },
-  {
-    name: 'Portfolio Website',
-    category: 'web',
-    tags: ['HTML/CSS', 'JavaScript'],
-    description: 'This very portfolio – responsive, theme-aware, and static.'
-  },
-  {
-    name: 'Various Logos and Web Graphics',
-    category: 'design',
-    tags: ['Photoshop', 'Illustrator'],
-    description: 'Logos, social media graphics, and promotional materials for various clients.'
+    tags: ['HTML/CSS', 'JavaScript', 'Canvas API'],
+    description: 'A browser-based shooter game built with vanilla JavaScript — menus, boss fights, and score tracking.',
+    images: ['assets/OverkillMenu.png', 'assets/OverkillBoss.png'],
+    links: {
+      live: 'https://kaidob312.github.io/OverKill.github.io/',
+      source: 'https://github.com/KaidoB312/OverKill.github.io'
+    }
   },
   {
     name: 'Tanzimat Reforms Monopoly',
     category: 'web',
     tags: ['HTML/CSS', 'JavaScript'],
-    description: 'Fun, interactive game built with vanilla JavaScript.',
-    images: ['assets/TanzimatReformsMonopoly.png', 'assets/TanzimatReformsMonopolyBoard.png']
+    description: 'Interactive educational board game built for a history class project — full Monopoly-style gameplay in the browser.',
+    images: ['assets/TanzimatReformsMonopoly.png', 'assets/TanzimatReformsMonopolyBoard.png'],
+    links: {
+      live: 'https://kaidob312.github.io/tanzimat-game.github.io/',
+      source: 'https://github.com/KaidoB312/tanzimat-game.github.io'
+    }
   },
   {
-    name: 'OverKill',
+    name: 'Admin Dashboard',
     category: 'web',
-    tags: ['HTML/CSS', 'JavaScript'],
-    description: 'A simple, shooter web game built with vanilla JavaScript.',
-    images: ['assets/OverkillMenu.png', 'assets/OverkillBoss.png']
+    tags: ['HTML/CSS', 'JavaScript', 'Chart.js'],
+    description: 'Admin dashboard with real-time website management, analytics, and data visualization for client projects.'
   },
   {
-    name: 'The Alcove & The Cavern',
+    name: 'Custom Websites',
     category: 'web',
-    tags: ['HTML/CSS', 'JavaScript'],
-    description: 'Branding and visual identity, including logos, as well as websites and graphics.'
+    tags: ['HTML/CSS', 'JavaScript', 'Responsive Design'],
+    description: 'Custom-built websites for local businesses, optimized for performance, accessibility, and SEO.'
   },
   {
-    name: 'Portrait of a Graduate for local school district',
+    name: 'Portrait of a Graduate',
     category: 'web',
     tags: ['HTML/CSS', 'JavaScript'],
-    description: 'A comprehensive visual representation of the district’s educational goals and values.',
+    description: 'A comprehensive visual platform representing the district\u2019s educational goals and values for Columbia Public Schools.',
     images: ['assets/CPSPOG.png', 'assets/CPSPOG2.png', 'assets/CPSPOG3.png']
   },
   {
-    name: 'Web Graphics for local businesses',
+    name: 'Portfolio Website',
+    category: 'web',
+    tags: ['HTML/CSS', 'JavaScript', 'Theme-aware'],
+    description: 'This very portfolio \u2014 responsive, dark-mode aware, static, and hand-crafted without frameworks.'
+  },
+  {
+    name: 'Creative Design & Branding',
     category: 'design',
-    tags: ['photoshop', 'illustrator'],
-    description: 'Logos, social media graphics, and promotional materials for various local businesses.'
+    tags: ['Photoshop', 'Illustrator', 'InDesign'],
+    description: 'Logos, brand packages, movie posters, magazine covers, web graphics, and promotional materials for clients and creative projects.'
   },
   {
     name: 'PivotPM',
@@ -159,10 +167,8 @@ const grid = document.getElementById('projectsGrid');
 const filterContainer = document.getElementById('filterButtons');
 
 if (grid && filterContainer) {
-  // Unique categories
   const categories = [...new Set(PROJECTS.map(p => p.category))];
 
-  // Create filter buttons
   const allBtn = document.createElement('button');
   allBtn.className = 'filter-btn active';
   allBtn.textContent = 'all';
@@ -182,30 +188,46 @@ if (grid && filterContainer) {
     grid.innerHTML = filtered.map(proj => {
       let imagesHTML = '';
       if (proj.images && proj.images.length) {
-        // One or more images inside a wrapper for styling
         imagesHTML = `<div class="project-images">` +
           proj.images.map(src => `<img src="${src}" alt="${proj.name}" loading="lazy">`).join('') +
           `</div>`;
       } else if (proj.image) {
-        // Fallback for single image property if present
         imagesHTML = `<div class="project-images"><img src="${proj.image}" alt="${proj.name}" loading="lazy"></div>`;
       }
 
+      const techBadgesHTML = proj.tags.map(t => `<span class="tech-badge">${t}</span>`).join('');
+
+      let linksHTML = '';
+      if (proj.links) {
+        const buttons = [];
+        if (proj.links.live) {
+          buttons.push(`<a href="${proj.links.live}" class="project-link" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> live</a>`);
+        }
+        if (proj.links.source) {
+          buttons.push(`<a href="${proj.links.source}" class="project-link" target="_blank" rel="noopener"><i class="fab fa-github"></i> source</a>`);
+        }
+        if (buttons.length) {
+          linksHTML = `<div class="project-links">${buttons.join('')}</div>`;
+        }
+      }
+
+      const featuredClass = proj.featured ? ' featured' : '';
+
       return `
-        <div class="project-card" data-category="${proj.category}">
+        <div class="project-card${featuredClass}" data-category="${proj.category}">
           ${imagesHTML}
+          <span class="project-category">${proj.category}</span>
           <h3>${proj.name}</h3>
-          <div class="project-tag">${proj.tags.join(', ')}</div>
+          <div class="project-tech">${techBadgesHTML}</div>
           <p>${proj.description}</p>
+          ${linksHTML}
         </div>
       `;
     }).join('');
   };
 
-  // Initial render
   renderProjects();
 
-  // Filter click handler
   filterContainer.addEventListener('click', (e) => {
     if (e.target.classList.contains('filter-btn')) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
